@@ -25,9 +25,9 @@ public class MyMain {
                 new Owner(0, "Tom Dallas", "+7345634759"),
                 new Client(1, "Lorry Williams", 29, false));
 
-        apart1.printRealEstateInfo();
+        apartment1.printRealEstateInfo();
         System.out.printf("%n");
-        apart2.printRealEstateInfo();
+        apartment2.printRealEstateInfo();
         System.out.printf("%n");
     }
 }
