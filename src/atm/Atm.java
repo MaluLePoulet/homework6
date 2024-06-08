@@ -62,12 +62,12 @@ public class Atm {
                 System.out.println("Insufficient funds!");
 
             }
-            for (int twentiesUsed = 0; twentiesUsed <= amountOfTwenties; twentiesUsed++) {
-                for (int fiftiesUsed = 0; fiftiesUsed <= amountOfFifties; fiftiesUsed++) {
+            int currentAmount = 0;
+            for (int twentiesUsed = 0; twentiesUsed <= amountOfTwenties & !(currentAmount >= moneyToWithdraw) & !(twentiesUsed * TWENTY > moneyToWithdraw); twentiesUsed++) {
+                for (int fiftiesUsed = 0; fiftiesUsed <= amountOfFifties & !(currentAmount >= moneyToWithdraw) & !(fiftiesUsed * FIFTY > moneyToWithdraw); fiftiesUsed++) {
                     for (int hundredsUsed = 0; hundredsUsed <= amountOfHundreds; hundredsUsed++) {
-                        int currentAmount = (hundredsUsed * HUNDRED) + (fiftiesUsed * FIFTY) + (twentiesUsed * TWENTY);
+                        currentAmount = (hundredsUsed * HUNDRED) + (fiftiesUsed * FIFTY) + (twentiesUsed * TWENTY);
                         if (currentAmount == moneyToWithdraw) {
-
                             amountOfHundreds -= hundredsUsed;
                             amountOfFifties -= fiftiesUsed;
                             amountOfTwenties -= twentiesUsed;
@@ -77,11 +77,25 @@ public class Atm {
                                     + TWENTY + " x " + twentiesUsed + "\nOperation successful!");
                             printAmountOfBanknotes();
                             status = true;
+                            break;
+                        } else if (currentAmount > moneyToWithdraw) {
+                            currentAmount = 0;
+                            break;
                         }
                     }
                 }
             }
         }
         return status;
+    }
+
+    public boolean withdrawByAmountOfBanknotes(int amountOf20, int amountOf50, int amountOf100) {
+        int totalAmount = (amountOf20 * TWENTY) + (amountOf50 * FIFTY) + (amountOf100 * HUNDRED);
+        amountOfTwenties -= amountOf20;
+        amountOfFifties -= amountOf50;
+        amountOfHundreds -= amountOf100;
+        System.out.println("Opeartion Successful! \nAmount withdrawn: " + totalAmount);
+        printAmountOfBanknotes();
+        return true;
     }
 }
